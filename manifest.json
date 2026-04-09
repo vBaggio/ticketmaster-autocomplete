@@ -27,6 +27,16 @@
         "content/content-script.js"
       ],
       "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://*.adyen.com/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "content/adyen-filler.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
 
