@@ -63,27 +63,28 @@ function fillAddress(address, formEl) {
         setAddressValue('#addressLine2', address.complement);
       }
 
-      // 5. Fallbacks (Rua e Bairro e Estado) - Injeta apenas se a API não os achou
-      if (streetInput && !streetInput.value && address.street) {
+      // 5. Sobrescrita de Dados (Prioriza o Cadastro do Usuário sobre a API do Ticketmaster)
+      if (streetInput && address.street) {
+        streetInput.removeAttribute('disabled');
         setAddressValue('#street', address.street);
       }
       
       const neighborhoodInput = formEl.querySelector('#neighborhood');
-      if (neighborhoodInput && !neighborhoodInput.value && address.neighborhood) {
+      if (neighborhoodInput && address.neighborhood) {
+        neighborhoodInput.removeAttribute('disabled');
         setAddressValue('#neighborhood', address.neighborhood);
       }
 
       const cityCheckInput = formEl.querySelector('#city');
       if (cityCheckInput && !cityCheckInput.value && address.city) {
-        setAddressValue('#city', address.city);
-        // tenta remover disabled por seguranca caso o rect tenha travado
         cityCheckInput.removeAttribute('disabled');
+        setAddressValue('#city', address.city);
       }
       
       const provinceInput = formEl.querySelector('#province');
       if (provinceInput && !provinceInput.value && address.state) {
-        setAddressValue('#province', address.state);
         provinceInput.removeAttribute('disabled');
+        setAddressValue('#province', address.state);
       }
 
       console.log('[TM-Auto] Formulário de cobrança preenchido. Finalizado! Aguardando o clique humano em "Continuar".');
