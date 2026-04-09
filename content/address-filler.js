@@ -9,6 +9,8 @@ function fillAddress(address, formEl) {
     const input = formEl.querySelector(selector);
     if (!input) return null;
     
+    input.focus();
+    
     // Funções nativas para engatilhar o React do GetCrowder
     const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
     if (nativeSetter) {
@@ -19,7 +21,11 @@ function fillAddress(address, formEl) {
     
     input.dispatchEvent(new Event('input', { bubbles: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
-    input.dispatchEvent(new Event('blur', { bubbles: true }));
+    input.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Tab', keyCode: 9 }));
+    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'Tab', keyCode: 9 }));
+    input.dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
+    input.blur();
+    
     return input;
   };
 
@@ -63,27 +69,28 @@ function fillAddress(address, formEl) {
         setAddressValue('#addressLine2', address.complement);
       }
 
-      // 5. Fallbacks (Rua e Bairro e Estado) - Injeta apenas se a API não os achou
-      if (streetInput && !streetInput.value && address.street) {
+      // 5. Sobrescrita de Dados (Prioriza o Cadastro do Usuário sobre a API do Ticketmaster)
+      if (streetInput && address.street) {
+        streetInput.removeAttribute('disabled');
         setAddressValue('#street', address.street);
       }
       
       const neighborhoodInput = formEl.querySelector('#neighborhood');
-      if (neighborhoodInput && !neighborhoodInput.value && address.neighborhood) {
+      if (neighborhoodInput && address.neighborhood) {
+        neighborhoodInput.removeAttribute('disabled');
         setAddressValue('#neighborhood', address.neighborhood);
       }
 
       const cityCheckInput = formEl.querySelector('#city');
       if (cityCheckInput && !cityCheckInput.value && address.city) {
-        setAddressValue('#city', address.city);
-        // tenta remover disabled por seguranca caso o rect tenha travado
         cityCheckInput.removeAttribute('disabled');
+        setAddressValue('#city', address.city);
       }
       
       const provinceInput = formEl.querySelector('#province');
       if (provinceInput && !provinceInput.value && address.state) {
-        setAddressValue('#province', address.state);
         provinceInput.removeAttribute('disabled');
+        setAddressValue('#province', address.state);
       }
 
       console.log('[TM-Auto] Formulário de cobrança preenchido. Finalizado! Aguardando o clique humano em "Continuar".');
