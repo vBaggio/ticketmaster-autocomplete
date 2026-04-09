@@ -27,17 +27,37 @@ window.addEventListener('message', (event) => {
     }
 
     if (valToFill !== null) {
-      if (nativeSetter) {
-        nativeSetter.call(input, valToFill);
-      } else {
-        input.value = valToFill;
+      // Feedback visual para o usuário saber que a extensão "acordou" dentro do iframe
+      document.body.style.transition = 'all 0.3s ease';
+      document.body.style.border = '2px solid #4338ca';
+      document.body.style.borderRadius = '4px';
+
+      // Remove qualquer formatação (espaços, traços)
+      const digits = String(valToFill).replace(/\\s/g, '');
+
+      // Foca no input
+      input.focus();
+      input.select();
+      
+      // Tática 1: Simular a digitação nativa do usuário (Funciona muito bem em máscaras como Adyen)
+      document.execCommand('insertText', false, digits);
+
+      // Tática 2: Fallback para a propriedade 'value' descritora pura (se a 1 falhar)
+      if (nativeSetter && input.value !== digits) {
+        nativeSetter.call(input, digits);
+      } else if (input.value !== digits) {
+        input.value = digits;
       }
       
+      // Emitir Eventos
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.dispatchEvent(new Event('change', { bubbles: true }));
       input.dispatchEvent(new Event('blur', { bubbles: true }));
       
       console.log(`[TM-Auto Iframe] Preencheu com sucesso o campo: ${inputId || ariaLabel}`);
+      
+      // Retira borda após preencher
+      setTimeout(() => { document.body.style.border = 'none'; }, 1000);
     }
   }
 });

@@ -1,6 +1,6 @@
 # Roadmap Completo — Ticketmaster Autocomplete Extension
 
-**Status geral:** Fase 0 ✅ Completa | Fase 1–7 📋 Planejadas
+**Status geral:** Fases 0–3 ✅ Completas | Fases 4–7 📋 Planejadas
 **Última atualização:** 2026-04-09
 
 ---
@@ -29,7 +29,7 @@
 ## Fase 1 — Esqueleto Funcional + CRUD + Content Script Básico
 
 **Objetivo:** base da extensão com opções page, detecção de etapas, injeção de botões
-**Status:** 🔄 EM ANDAMENTO
+**Status:** ✅ COMPLETA
 **Deadline indicativo:** 2026-04-11
 
 ### Escopo
@@ -164,11 +164,11 @@
 
 ---
 
-## Fase 2 — Endereço de Cobrança
+## Fase 2 — Endereço de Cobrança / Ajustes UI de Opções
 
-**Objetivo:** preencher formulário de endereço quando conta não tem salvo
-**Status:** ⏳ Pendente
-**Estimado:** após Fase 1
+**Objetivo:** preencher formulário de endereço + aprimorar Options CRUD
+**Status:** ✅ COMPLETA
+**Implementado:** Estratégia de pausa (para permitir revisão humana no billing address por quirks dinâmicos) e sanfonas de fechamento de formulários no `options.js`.
 
 ### Escopo
 
@@ -186,9 +186,9 @@
 
 ## Fase 3 — Etapas Intermediárias Automáticas
 
-**Objetivo:** auto-navegação em etapas sem formulário (seguro, entrega, termos, confirmação)
-**Status:** ⏳ Pendente
-**Estimado:** após Fase 2
+**Objetivo:** auto-navegação em etapas sem formulário (seguro, entrega, termos, confirmação) + seleção de parcelas.
+**Status:** ✅ COMPLETA
+**Implementado:** Recusa de seguro, check em Termos, seleção de entrega via MutationObserver, auto-confirmação (configurável no storage) e observer para parcelamento 1x automático após injeção Adyen.
 
 ### Escopo
 
@@ -326,14 +326,14 @@ ticket-master-autocomplete/
 | Fase | Descrição | Duração | Início | Fim |
 |------|-----------|---------|--------|-----|
 | 0 | Reconhecimento | ✅ Completa | 2026-04-08 | 2026-04-09 |
-| 1 | Esqueleto + CRUD + Content Script | 4 dias | 2026-04-09 | 2026-04-13 |
-| 2 | Endereço de cobrança | 2 dias | 2026-04-13 | 2026-04-15 |
-| 3 | Etapas intermediárias | 2 dias | 2026-04-15 | 2026-04-17 |
-| 4 | Toast/feedback | 1 dia | 2026-04-17 | 2026-04-18 |
-| 5 | Botão flutuante | 2 dias | 2026-04-18 | 2026-04-20 |
-| 6 | Atalhos de teclado | 1 dia | 2026-04-20 | 2026-04-21 |
-| 7 | Polimento | 2 dias | 2026-04-21 | 2026-04-23 |
-| **Total** | | **14 dias** | | 2026-04-23 |
+| 1 | Esqueleto + CRUD + Content Script | ✅ Completa | 2026-04-09 | 2026-04-09 |
+| 2 | Endereço de cobrança / Ajustes UI Options | ✅ Completa | 2026-04-09 | 2026-04-09 |
+| 3 | Etapas intermediárias + Parcelas | ✅ Completa | 2026-04-09 | 2026-04-09 |
+| 4 | Toast/feedback | 1 dia | 2026-04-09 | 2026-04-10 |
+| 5 | Botão flutuante | 2 dias | - | - |
+| 6 | Atalhos de teclado | 1 dia | - | - |
+| 7 | Polimento | 2 dias | - | - |
+| **Total** | | **~7 dias** | | - |
 
 ---
 

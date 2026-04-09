@@ -9,11 +9,26 @@
   <div id="container">
     <h1>Configurações — Ticketmaster Autocomplete</h1>
 
+    <!-- SEÇÃO GERAL -->
+    <section id="settingsSection">
+      <h2>⚙️ Configurações Gerais</h2>
+      <div class="form-container" style="padding: 16px;">
+        <label style="display: flex; align-items: center; cursor: pointer;">
+          <input type="checkbox" id="settingAutoConfirm" style="width: auto; margin-right: 8px;">
+          <strong>Avançar automaticamente na tela "Confirme a operação"</strong>
+        </label>
+        <p style="font-size: 12px; color: #666; margin-top: 4px; margin-bottom: 0;">Se marcado, a extensão pula imediatamente a tela de revisão e reserva os ingressos sem aguardar clique humano.</p>
+      </div>
+    </section>
+
     <!-- SEÇÃO USUÁRIOS -->
     <section id="usersSection">
-      <h2>👤 Usuários</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="margin: 0;">👤 Usuários</h2>
+        <button id="showUserFormBtn" class="btn btn-primary" style="width: auto; padding: 6px 16px;">+ Incluir Usuário</button>
+      </div>
 
-      <div class="form-container">
+      <div class="form-container" id="userFormContainer" style="display: none;">
         <h3 id="userFormTitle">Novo Usuário</h3>
         <form id="userForm">
           <div class="form-group">
@@ -64,7 +79,7 @@
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary" id="userSubmitBtn">Adicionar Usuário</button>
-            <button type="button" class="btn btn-secondary" id="userCancelBtn" style="display:none;">Cancelar Edição</button>
+            <button type="button" class="btn btn-secondary" id="userCancelBtn">Cancelar</button>
           </div>
         </form>
       </div>
@@ -74,9 +89,12 @@
 
     <!-- SEÇÃO CARTÕES -->
     <section id="cardsSection">
-      <h2>💳 Cartões</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="margin: 0;">💳 Cartões</h2>
+        <button id="showCardFormBtn" class="btn btn-primary" style="width: auto; padding: 6px 16px;">+ Incluir Cartão</button>
+      </div>
 
-      <div class="form-container">
+      <div class="form-container" id="cardFormContainer" style="display: none;">
         <h3 id="cardFormTitle">Novo Cartão</h3>
         <form id="cardForm">
           <div class="form-group">
@@ -108,7 +126,7 @@
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary" id="cardSubmitBtn">Adicionar Cartão</button>
-            <button type="button" class="btn btn-secondary" id="cardCancelBtn" style="display:none;">Cancelar Edição</button>
+            <button type="button" class="btn btn-secondary" id="cardCancelBtn">Cancelar</button>
           </div>
         </form>
       </div>

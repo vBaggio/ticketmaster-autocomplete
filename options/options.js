@@ -42,6 +42,30 @@ function escapeHTML(str) {
     .replace(/"/g, '&quot;');
 }
 
+// ===== CONFIGURAÇÕES GERAIS =====
+
+async function loadSettings() {
+  const isAutoConfirm = await getSetting('autoConfirmCheckout');
+  document.getElementById('settingAutoConfirm').checked = !!isAutoConfirm;
+
+  document.getElementById('settingAutoConfirm').addEventListener('change', async (e) => {
+    await setSetting('autoConfirmCheckout', e.target.checked);
+    console.log('[TM-Auto] Preferência autoConfirmCheckbox salva:', e.target.checked);
+  });
+}
+
+// ===== TOGGLES DOS FORMULÁRIOS =====
+
+document.getElementById('showUserFormBtn').addEventListener('click', () => {
+  const container = document.getElementById('userFormContainer');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('showCardFormBtn').addEventListener('click', () => {
+  const container = document.getElementById('cardFormContainer');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+});
+
 // ===== USUÁRIOS =====
 
 document.getElementById('userForm').addEventListener('submit', async (e) => {
@@ -72,7 +96,6 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     editingUserId = null;
     document.getElementById('userFormTitle').textContent = 'Novo Usuário';
     document.getElementById('userSubmitBtn').textContent = 'Adicionar Usuário';
-    document.getElementById('userCancelBtn').style.display = 'none';
   } else {
     const user = createUser(userData);
     await addUser(user);
@@ -80,6 +103,7 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
 
   document.getElementById('userForm').reset();
   document.getElementById('userHalfTicketType').value = '';
+  document.getElementById('userFormContainer').style.display = 'none';
   updateHalfTicketExtras();
   loadUsers();
 });
@@ -89,7 +113,7 @@ document.getElementById('userCancelBtn').addEventListener('click', () => {
   document.getElementById('userForm').reset();
   document.getElementById('userFormTitle').textContent = 'Novo Usuário';
   document.getElementById('userSubmitBtn').textContent = 'Adicionar Usuário';
-  document.getElementById('userCancelBtn').style.display = 'none';
+  document.getElementById('userFormContainer').style.display = 'none';
   document.getElementById('userHalfTicketType').value = '';
   updateHalfTicketExtras();
 });
@@ -203,7 +227,9 @@ async function editUser(userId) {
 
   document.getElementById('userFormTitle').textContent = 'Editar Usuário';
   document.getElementById('userSubmitBtn').textContent = 'Atualizar Usuário';
-  document.getElementById('userCancelBtn').style.display = 'inline-block';
+  
+  // Garantir que o formulário fique visível ao editar
+  document.getElementById('userFormContainer').style.display = 'block';
   document.querySelector('#userForm').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -225,13 +251,13 @@ document.getElementById('cardForm').addEventListener('submit', async (e) => {
     editingCardId = null;
     document.getElementById('cardFormTitle').textContent = 'Novo Cartão';
     document.getElementById('cardSubmitBtn').textContent = 'Adicionar Cartão';
-    document.getElementById('cardCancelBtn').style.display = 'none';
   } else {
     const card = createCard(cardData);
     await addCard(card);
   }
 
   document.getElementById('cardForm').reset();
+  document.getElementById('cardFormContainer').style.display = 'none';
   loadCards();
 });
 
@@ -240,7 +266,7 @@ document.getElementById('cardCancelBtn').addEventListener('click', () => {
   document.getElementById('cardForm').reset();
   document.getElementById('cardFormTitle').textContent = 'Novo Cartão';
   document.getElementById('cardSubmitBtn').textContent = 'Adicionar Cartão';
-  document.getElementById('cardCancelBtn').style.display = 'none';
+  document.getElementById('cardFormContainer').style.display = 'none';
 });
 
 async function loadCards() {
@@ -303,7 +329,9 @@ async function editCard(cardId) {
 
   document.getElementById('cardFormTitle').textContent = 'Editar Cartão';
   document.getElementById('cardSubmitBtn').textContent = 'Atualizar Cartão';
-  document.getElementById('cardCancelBtn').style.display = 'inline-block';
+
+  // Garantir que o formulário fique visível ao editar
+  document.getElementById('cardFormContainer').style.display = 'block';
   document.querySelector('#cardForm').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -355,6 +383,7 @@ document.getElementById('importFile').addEventListener('change', async (e) => {
 });
 
 // Carregar dados ao abrir
+loadSettings();
 loadUsers();
 loadCards();
 
