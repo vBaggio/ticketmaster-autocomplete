@@ -16,8 +16,8 @@ Uma extensão de navegador para Google Chrome que preenche de forma automática 
 
 Como se trata de uma extensão focada em performance pessoal (e não publicada abertamente na Web Store), a instalação é rápida pelo Modo Desenvolvedor:
 
-1. Baixe os arquivos do projeto abrindo a página principal deste repositório e clicando no botão verde **Code > Download ZIP**.
-2. Extraia o arquivo `.zip` baixado em uma pasta acessível do seu computador.
+1. Acesse a aba de **Releases** na lateral direita da página principal do repositório no Github (ou clique no link mais recente atrelado a este repositório).
+2. Baixe o arquivo `.zip` correspondente sob as opções de *Assets* no final da postagem de Release e extraia a pasta num local acessado facilmente por você no computador.
 3. Abra seu Google Chrome (ou teclados Chromium como Brave/Edge) e na barra de endereço digite: `chrome://extensions/`
 4. Habilite a chave de **"Modo do desenvolvedor"** no canto superior direito da tela.
 5. Clique no botão **"Carregar sem compactação"** (Load unpacked) na barra superior esquerda.
