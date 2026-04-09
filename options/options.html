@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Configurações — Ticketmaster Autocomplete</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div id="container">
+    <h1>Configurações — Ticketmaster Autocomplete</h1>
+
+    <!-- SEÇÃO USUÁRIOS -->
+    <section id="usersSection">
+      <h2>👤 Usuários</h2>
+
+      <div class="form-container">
+        <h3 id="userFormTitle">Novo Usuário</h3>
+        <form id="userForm">
+          <div class="form-group">
+            <label for="userLabel">Label (nome exibido)*</label>
+            <input type="text" id="userLabel" required placeholder="Ex: Victor">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="userFullName">Nome Completo*</label>
+              <input type="text" id="userFullName" required placeholder="Ex: Victor Baggio">
+            </div>
+            <div class="form-group">
+              <label for="userCPF">CPF*</label>
+              <input type="text" id="userCPF" required placeholder="000.000.000-00">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="userBirthDate">Data de Nascimento</label>
+              <input type="text" id="userBirthDate" placeholder="DD/MM/AAAA">
+            </div>
+            <div class="form-group">
+              <label for="userEmail">E-mail</label>
+              <input type="email" id="userEmail" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+              <label for="userPhone">Telefone</label>
+              <input type="text" id="userPhone" placeholder="(11) 99999-9999">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="userHalfTicketType">Tipo de Meia-entrada</label>
+            <select id="userHalfTicketType">
+              <option value="">Nenhuma (Inteira)</option>
+              <option value="Student">Estudante (CIE)</option>
+              <option value="DisabledPerson">Pessoa com Deficiência</option>
+              <option value="LowIncomeYouth">Jovem de Baixa Renda</option>
+              <option value="Teachers">Professor/Educador</option>
+              <option value="OldMan">Maior de 60 anos</option>
+              <option value="Retirees">Aposentado</option>
+            </select>
+          </div>
+
+          <div id="halfTicketExtras"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="userSubmitBtn">Adicionar Usuário</button>
+            <button type="button" class="btn btn-secondary" id="userCancelBtn" style="display:none;">Cancelar Edição</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="usersList" class="list-container"></div>
+    </section>
+
+    <!-- SEÇÃO CARTÕES -->
+    <section id="cardsSection">
+      <h2>💳 Cartões</h2>
+
+      <div class="form-container">
+        <h3 id="cardFormTitle">Novo Cartão</h3>
+        <form id="cardForm">
+          <div class="form-group">
+            <label for="cardLabel">Label (nome exibido)*</label>
+            <input type="text" id="cardLabel" required placeholder="Ex: Nubank">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cardNumber">Número do Cartão*</label>
+              <input type="text" id="cardNumber" required placeholder="4532015112830366" maxlength="19">
+            </div>
+            <div class="form-group">
+              <label for="cardHolder">Titular do Cartão*</label>
+              <input type="text" id="cardHolder" required placeholder="JOÃO SILVA">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cardExpiration">Validade (MM/AA)*</label>
+              <input type="text" id="cardExpiration" required placeholder="12/25" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="cardCVV">CVV*</label>
+              <input type="text" id="cardCVV" required placeholder="123" maxlength="4">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="cardSubmitBtn">Adicionar Cartão</button>
+            <button type="button" class="btn btn-secondary" id="cardCancelBtn" style="display:none;">Cancelar Edição</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="cardsList" class="list-container"></div>
+    </section>
+
+    <!-- SEÇÃO EXPORT/IMPORT -->
+    <section id="backupSection">
+      <h2>💾 Backup</h2>
+      <div class="backup-actions">
+        <button id="exportBtn" class="btn btn-secondary">Exportar JSON</button>
+        <button id="importBtn" class="btn btn-secondary">Importar JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;">
+      </div>
+    </section>
+  </div>
+
+  <script src="../shared/schema.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
