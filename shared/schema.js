@@ -36,10 +36,27 @@ function createCard(data = {}) {
   };
 }
 
+function createAddress(data = {}) {
+  return {
+    id: crypto.randomUUID(),
+    label: data.label || '',
+    firstName: data.firstName || '',
+    lastName: data.lastName || '',
+    zipcode: data.zipcode || '',
+    street: data.street || '',
+    number: data.number || '',
+    complement: data.complement || '',
+    neighborhood: data.neighborhood || '',
+    city: data.city || '',
+    state: data.state || ''
+  };
+}
+
 function createInitialStorage() {
   return {
     users: [],
     cards: [],
+    addresses: [],
     settings: {
       enabled: true
     }

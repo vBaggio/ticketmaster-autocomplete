@@ -4,6 +4,7 @@
 
 let editingUserId = null;
 let editingCardId = null;
+let editingAddressId = null;
 
 // Data de nascimento está sempre nos dados pessoais comuns (userBirthDate).
 // Os campos extras por tipo são apenas os específicos daquele tipo.
@@ -63,6 +64,11 @@ document.getElementById('showUserFormBtn').addEventListener('click', () => {
 
 document.getElementById('showCardFormBtn').addEventListener('click', () => {
   const container = document.getElementById('cardFormContainer');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('showAddressFormBtn').addEventListener('click', () => {
+  const container = document.getElementById('addressFormContainer');
   container.style.display = container.style.display === 'none' ? 'block' : 'none';
 });
 
@@ -233,6 +239,118 @@ async function editUser(userId) {
   document.querySelector('#userForm').scrollIntoView({ behavior: 'smooth' });
 }
 
+// ===== ENDEREÇOS =====
+
+document.getElementById('addressForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const addressData = {
+    label: document.getElementById('addressLabel').value,
+    firstName: document.getElementById('addressFirstName').value,
+    lastName: document.getElementById('addressLastName').value,
+    zipcode: document.getElementById('addressZipcode').value,
+    street: document.getElementById('addressStreet').value,
+    number: document.getElementById('addressNumber').value,
+    complement: document.getElementById('addressComplement').value,
+    neighborhood: document.getElementById('addressNeighborhood').value,
+    city: document.getElementById('addressCity').value,
+    state: document.getElementById('addressState').value
+  };
+
+  if (editingAddressId) {
+    await updateAddress(editingAddressId, addressData);
+    editingAddressId = null;
+    document.getElementById('addressFormTitle').textContent = 'Novo Endereço';
+    document.getElementById('addressSubmitBtn').textContent = 'Adicionar Endereço';
+  } else {
+    const address = createAddress(addressData);
+    await addAddress(address);
+  }
+
+  document.getElementById('addressForm').reset();
+  document.getElementById('addressFormContainer').style.display = 'none';
+  loadAddresses();
+});
+
+document.getElementById('addressCancelBtn').addEventListener('click', () => {
+  editingAddressId = null;
+  document.getElementById('addressForm').reset();
+  document.getElementById('addressFormTitle').textContent = 'Novo Endereço';
+  document.getElementById('addressSubmitBtn').textContent = 'Adicionar Endereço';
+  document.getElementById('addressFormContainer').style.display = 'none';
+});
+
+async function loadAddresses() {
+  try {
+    const addresses = await getAddresses();
+    const list = document.getElementById('addressesList');
+
+    if (addresses.length === 0) {
+      list.innerHTML = '<p class="empty-message">Nenhum endereço cadastrado</p>';
+      return;
+    }
+
+    list.innerHTML = '<table class="data-table"><tbody>' +
+      addresses.map(addr => `
+        <tr>
+          <td>
+            <strong>${escapeHTML(addr.label)}</strong><br>
+            <small>${escapeHTML(addr.firstName)} ${escapeHTML(addr.lastName)}</small>
+          </td>
+          <td>
+            <small>${escapeHTML(addr.zipcode)} - Nº ${escapeHTML(addr.number)}</small>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-edit" data-address-id="${escapeHTML(addr.id)}">✏️ Editar</button>
+            <button class="btn btn-sm btn-delete" data-address-id="${escapeHTML(addr.id)}">🗑️ Remover</button>
+          </td>
+        </tr>
+      `).join('') +
+      '</tbody></table>';
+
+    document.querySelectorAll('[data-address-id]').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const addressId = btn.dataset.addressId;
+        if (btn.classList.contains('btn-edit')) {
+          await editAddress(addressId);
+        } else if (btn.classList.contains('btn-delete')) {
+          if (confirm('Tem certeza que deseja remover este endereço?')) {
+            await deleteAddress(addressId);
+            loadAddresses();
+          }
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Erro ao carregar endereços:', error);
+  }
+}
+
+async function editAddress(addressId) {
+  const addresses = await getAddresses();
+  const address = addresses.find(a => a.id === addressId);
+  if (!address) return;
+
+  editingAddressId = addressId;
+  document.getElementById('addressLabel').value = address.label;
+  document.getElementById('addressFirstName').value = address.firstName;
+  document.getElementById('addressLastName').value = address.lastName;
+  document.getElementById('addressZipcode').value = address.zipcode;
+  document.getElementById('addressStreet').value = address.street;
+  document.getElementById('addressNumber').value = address.number;
+  document.getElementById('addressComplement').value = address.complement;
+  document.getElementById('addressNeighborhood').value = address.neighborhood;
+  document.getElementById('addressCity').value = address.city;
+  document.getElementById('addressState').value = address.state;
+
+  document.getElementById('addressFormTitle').textContent = 'Editar Endereço';
+  document.getElementById('addressSubmitBtn').textContent = 'Atualizar Endereço';
+
+  // Garantir que o formulário fique visível ao editar
+  document.getElementById('addressFormContainer').style.display = 'block';
+  document.querySelector('#addressForm').scrollIntoView({ behavior: 'smooth' });
+}
+
 // ===== CARTÕES =====
 
 document.getElementById('cardForm').addEventListener('submit', async (e) => {
@@ -372,6 +490,7 @@ document.getElementById('importFile').addEventListener('change', async (e) => {
     if (success) {
       alert('Dados importados com sucesso!');
       loadUsers();
+      loadAddresses();
       loadCards();
     } else {
       alert('Erro ao importar dados. Verifique o formato do arquivo.');
@@ -385,6 +504,7 @@ document.getElementById('importFile').addEventListener('change', async (e) => {
 // Carregar dados ao abrir
 loadSettings();
 loadUsers();
+loadAddresses();
 loadCards();
 
 console.log('[Ticketmaster Autocomplete] Options page carregada');
