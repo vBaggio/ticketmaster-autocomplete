@@ -87,6 +87,79 @@
       <div id="usersList" class="list-container"></div>
     </section>
 
+    <!-- SEÇÃO ENDEREÇOS -->
+    <section id="addressesSection">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="margin: 0;">🏠 Endereços de Cobrança</h2>
+        <button id="showAddressFormBtn" class="btn btn-primary" style="width: auto; padding: 6px 16px;">+ Incluir Endereço</button>
+      </div>
+
+      <div class="form-container" id="addressFormContainer" style="display: none;">
+        <h3 id="addressFormTitle">Novo Endereço</h3>
+        <form id="addressForm">
+          <div class="form-group">
+            <label for="addressLabel">Label (nome exibido)*</label>
+            <input type="text" id="addressLabel" required placeholder="Ex: Casa">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="addressFirstName">Nome*</label>
+              <input type="text" id="addressFirstName" required placeholder="Ex: Victor">
+            </div>
+            <div class="form-group">
+              <label for="addressLastName">Sobrenome*</label>
+              <input type="text" id="addressLastName" required placeholder="Ex: Baggio">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex: 0 0 30%;">
+              <label for="addressZipcode">CEP*</label>
+              <input type="text" id="addressZipcode" required placeholder="00000-000">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label for="addressStreet">Rua</label>
+              <input type="text" id="addressStreet" placeholder="Apenas se o CEP não achar a Rua">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="addressNumber">Número*</label>
+              <input type="text" id="addressNumber" required placeholder="Ex: 123">
+            </div>
+            <div class="form-group">
+              <label for="addressComplement">Complemento</label>
+              <input type="text" id="addressComplement" placeholder="Ex: Apto 42">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="addressNeighborhood">Bairro</label>
+              <input type="text" id="addressNeighborhood" placeholder="Apenas se CEP falhar">
+            </div>
+            <div class="form-group">
+              <label for="addressCity">Cidade</label>
+              <input type="text" id="addressCity" placeholder="Apenas se CEP falhar">
+            </div>
+            <div class="form-group" style="flex: 0 0 20%;">
+              <label for="addressState">Estado</label>
+              <input type="text" id="addressState" placeholder="SP">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="addressSubmitBtn">Adicionar Endereço</button>
+            <button type="button" class="btn btn-secondary" id="addressCancelBtn">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="addressesList" class="list-container"></div>
+    </section>
+
     <!-- SEÇÃO CARTÕES -->
     <section id="cardsSection">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">

@@ -109,3 +109,31 @@ async function injectCardButtons() {
     cardHolderInput.parentElement.insertBefore(toolbar, cardHolderInput);
   }
 }
+
+async function injectAddressButtons(formEl) {
+  // Evitar duplicação
+  if (formEl.parentElement.querySelector('#tm-auto-address-toolbar')) return;
+
+  const addresses = await getAddresses();
+  if (addresses.length === 0) return;
+
+  const toolbar = document.createElement('div');
+  toolbar.id = 'tm-auto-address-toolbar';
+  toolbar.setAttribute('style', TOOLBAR_STYLE);
+
+  toolbar.appendChild(makeLabel('Preencher com:'));
+
+  addresses.forEach(addr => {
+    const btn = makeButton(addr.label || 'Sem nome', () => {
+      if (typeof fillAddress === 'function') {
+        fillAddress(addr, formEl);
+      } else {
+        console.warn('[TM-Auto] fillAddress não encontrado. address-filler.js foi carregado?');
+      }
+    });
+    toolbar.appendChild(btn);
+  });
+
+  // Inserir antes do formulário
+  formEl.parentElement.insertBefore(toolbar, formEl);
+}
