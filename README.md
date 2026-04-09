@@ -8,9 +8,9 @@ Uma extensão de navegador para Google Chrome que preenche de forma automática 
 
 - **Preenchimento Instantâneo de Participantes**: Nome, CPF, e-mail, telefone e data de nascimento em um clique.
 - **Suporte Inteligente à Meia-Entrada**: Insere de forma automática a sua categoria e dados auxiliares (ex: Número da CIE Universitária, Instituição de Ensino, etc).
-- **Gestão Integrada de Cartões de Crédito**: Selecione múltiplos cartões pré-cadastrados, permitindo que a extensão agilize a seleção de parcelamento e insira os dados iniciais dos pesados formulários de pagamento.
-- **Auto-Avanço**: Habilidade de marcar rapidamente os Termos de Uso, recusar Seguros extras e auto-selecionar o envio padrão sem gastar tempo.
-- **Painel Inline**: Uma barra invisível salta automaticamente na própria tela do checkout (sem popups) para você selecionar exatamente qual perfil deseja injetar.
+- **Gestão Integrada de Endereços de Cobrança**: Máquina de estado (State Machine) inteligente que lida com a API de CEP dos Correios (GetCrowder) do próprio Ticketmaster, garantindo precisão ao injetar automagicamente ruas e complementos sem ferir as chamadas nativas de validação do site.
+- **Injeção de Cartões de Crédito**: Acelere inserindo os dados iniciais dos formulários de pagamento (Titular) com 1 botão para focar só na Numeração Segura em segundos.
+- **Piloto Automático de Checkouts**: Habilidade nativa de marcar agilmente os Termos de Uso, recusar Seguros desnecessários de Imprevistos e priorizar taxa zero de entrega por conta própria.
 
 ## 🔥 Como Instalar
 
@@ -28,7 +28,8 @@ Como se trata de uma extensão focada em performance pessoal (e não publicada a
 
 - **Configurações Prévias:** Após instalada, acesse as "Opções" da extensão. É lá que você cadastra todos os participantes e cartões. É possível exportar os dados via arquivo JSON e restaurá-los!
 - **Na Hora da Compra:** Ao alcançar a etapa de informar os "Detalhes dos participantes", uma aba azul do Autocomplete surgirá integrada ao site. Clique no botão com o nome do perfil desejado e os campos serão ativados.
-- **Na Tela do Cartão:** A barra vai reaparecer sobre o formulário de pagamento. Ao selecionar seu cartão, o Titular e o tempo do input serão adiantadas - o que é crítico devido ao bloqueio e à criptografia forçada da plataforma da Adyen Ticketmaster. **Nota:** *Por segurança arquitetural da Adyen, pode ser necessário preencher manulamente o Número do Cartão e CVV.*
+- **No Endereço de Cobrança:** Ao cair na tela de moradias, selecione seu Endereço no novo menu que injetamos — aguarde cerca de 1,5s enquanto o bot dispara o CEP pro site nativo confirmar a existência da Rua antes dele re-injetar os números e preencher sua cidade e estado para o botão "Continuar" acender na mesma hora.
+- **Na Tela do Cartão:** A barra vai reaparecer sobre o formulário de pagamento em si. Ao selecionar seu Cartão, a mecânica garantirá a inserção dos dados simples antes de delegar a você a numeração de segurança, contornando travas rigorosas dos gateways globais da marca *Adyen*.
 
 ## 🔐 Privacidade e Segurança
 
