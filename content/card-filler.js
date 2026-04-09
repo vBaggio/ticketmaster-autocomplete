@@ -12,7 +12,7 @@ async function fillCardHolder(card) {
     return;
   }
 
-  // Reusar setInputValue do holder-filler.js (carregado antes no manifest)
+  // Injetar Titular (Fica fora do iframe Adyen)
   setInputValue(input, card.holderName);
 
   // Selecionar 1 parcela (à vista) por padrão no combobox - Aguarda o Adyen carregar o DOM
@@ -69,12 +69,9 @@ async function fillCardHolder(card) {
     }
   }
 
-  // 1. Tentar jogar o número puro do cartão (sem espaços) direto para o Clipboard do usuário
-  navigator.clipboard.writeText(String(card.number).replace(/\s/g, '')).catch(() => console.warn('[TM-Auto] Não conseguiu auto-copiar número: falta de foco na aba.'));
-
   infoBox.innerHTML = `
-    <div style="font-weight: bold; margin-bottom: 4px;">💳 Adyen bloqueia injeções diretas.</div>
-    <div style="font-size: 13px; color: #4338ca; margin-bottom: 8px;">O Número do Cartão já foi <strong style="color: #16a34a">copiado para a Área de Transferência</strong>! Basta clicar no campo de Número e apertar <code>CTRL + V</code>.<br> Use os botões abaixo para copiar Validade e CVV rapidamente:</div>
+    <div style="font-weight: bold; margin-bottom: 4px;">💳 Assistente de Cartão Adyen</div>
+    <div style="font-size: 13px; color: #4338ca; margin-bottom: 8px;">O Titular foi preenchido. Para garantir a segurança, Adyen usa iframes para os demais campos.<br>Use os botões abaixo para <strong>copiar os dados</strong> rapidamente e cole (<code>CTRL + V</code>):</div>
     <div style="display: flex; gap: 16px; font-family: monospace; font-size: 14px; margin-top: 8px;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <strong>Cartão:</strong> <span style="background: #fff; padding: 2px 4px; border-radius: 2px; border: 1px solid #c7d2fe; user-select: all;">${card.number}</span>
