@@ -30,7 +30,9 @@ function detectCheckoutStage() {
     handleCardStage();
   } else if (text.includes('Novo endereço de cobrança')) {
     // Congela a automação na tela de Endereço. Respeitando a regra: não pode ser pulada!
-    console.log('[TM-Auto] Etapa de Endereço detectada. Automação Pausada.');
+    console.log('[TM-Auto] Etapa de Endereço detectada. Injetando Assistente...');
+    const formEl = document.querySelector('#checkout-actions form');
+    if (formEl) injectAddressButtons(formEl);
   } else {
     // Processar popups e etapas soltas (Termos, Seguro, Entrega)
     handleIntermediaryStages();

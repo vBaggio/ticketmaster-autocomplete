@@ -24,17 +24,8 @@
         "content/holder-filler.js",
         "content/card-filler.js",
         "content/ui-injector.js",
+        "content/address-filler.js",
         "content/content-script.js"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [
-        "https://*.adyen.com/*"
-      ],
-      "all_frames": true,
-      "js": [
-        "content/adyen-filler.js"
       ],
       "run_at": "document_idle"
     }

@@ -76,6 +76,43 @@ async function deleteCard(id) {
   });
 }
 
+// ===== ENDEREÇOS =====
+
+async function getAddresses() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(['addresses'], (result) => {
+      resolve(result.addresses || []);
+    });
+  });
+}
+
+async function addAddress(address) {
+  const addresses = await getAddresses();
+  addresses.push(address);
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ addresses }, resolve);
+  });
+}
+
+async function updateAddress(id, updates) {
+  const addresses = await getAddresses();
+  const index = addresses.findIndex((a) => a.id === id);
+  if (index !== -1) {
+    addresses[index] = { ...addresses[index], ...updates };
+    return new Promise((resolve) => {
+      chrome.storage.local.set({ addresses }, resolve);
+    });
+  }
+}
+
+async function deleteAddress(id) {
+  const addresses = await getAddresses();
+  const filtered = addresses.filter((a) => a.id !== id);
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ addresses: filtered }, resolve);
+  });
+}
+
 // ===== SETTINGS =====
 
 async function getSetting(key) {
